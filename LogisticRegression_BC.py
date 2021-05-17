@@ -72,7 +72,7 @@ def main():
     print("I will delete variables for SE and Worst\n this means that it may be a problem for my result because they are redundant.\nThis also means my model would not be able \nto distinguish between independent and dependent variables.\nAll variables are corelated but we have redundant information \nI will delete standar error and worst variables, so we dont have redundant values")
     
     #Count values
-    print("Counting positive and negative values:")
+    print("\nCounting positive and negative values:")
     print(df['diagnosis'].value_counts())
 
     #Set x and y
@@ -100,31 +100,36 @@ def main():
             correctly_classified = correctly_classified + 1
             count = count + 1
 
+    #True possitive(Upper-left)
+    #True negative(lower right)
+    #False positive(top-right)
+    #False negative(lower-left)
     print("\nConfusion matrix results for hand test model 20%")
     print(confusion_matrix(Y_test,Y_pred))             
-    print( "Accuracy on test set by our model:  ", (correctly_classified / count ) * 100 )
+    print("\nAccuracy on test set by our model:  ", (correctly_classified / count ) * 100 )
     
     #UserTest
     print("\nAnswer the next questions: \n")
     UserInfo = []
-    UserInfo.append(float(input("Radius or mean of distances from center to points on the perimeter: ")))
-    UserInfo.append(float(input("Texture or standard deviation of gray-scale values: ")))
-    perimeter_mean = float(input("Perimeter: "))
+    UserInfo.append(float(input("\nHealthy Average: 14.0598\nCancer case example: 28.11\nRadius or mean of distances from center to points on the perimeter: ")))
+    UserInfo.append(float(input("\nHealthy Average: 19.24787\nCancer case example: 39.28\nTexture or standard deviation of gray-scale values: ")))
+    perimeter_mean = float(input("\nHealthy Average: 91.45925\nCancer case example: 188.5\nPerimeter: "))
     UserInfo.append(perimeter_mean)
-    area_mean = float(input("Area: "))
+    area_mean = float(input("\nHealthy Average: 648.8422\nCancer case example: 2501\nArea: "))
     UserInfo.append(area_mean)
-    UserInfo.append(float(input("Smoothness or local variation in radius lengths: ")))
+    UserInfo.append(float(input("\nHealthy Average: .095972\nCancer case example: .1447\nSmoothness or local variation in radius lengths: ")))
+    print("\nCalculating Compactness...")
     UserInfo.append((perimeter_mean)**2/(area_mean)-1)
-    UserInfo.append(float(input("Severity of concave portions of the contour: ")))
-    UserInfo.append(float(input("Number of concave portions of the contour: ")))
-    UserInfo.append(float(input("Symmetry mean: ")))
-    UserInfo.append(float(input("Fractal dimension mean: ")))
+    UserInfo.append(float(input("\nHealthy Average: .086394\nCancer case example: .4268\nSeverity of concave portions of the contour: ")))
+    UserInfo.append(float(input("\nHealthy Average: .047668\nCancer case example: .2012\nNumber of concave portions of the contour: ")))
+    UserInfo.append(float(input("\nHealthy Average: .180424\nCancer case example: .304\nSymmetry mean: ")))
+    UserInfo.append(float(input("\nHealthy Average: .083051\nCancer case example: .09744\nFractal dimension mean: ")))
 
     UserInfo_df = pd.DataFrame([UserInfo])
     prediction = model.predict(UserInfo_df)
     
-    print("Results will be printed with 1 as Breast Cancer case and 0 as healthy")
-    print("Hand Prediction: ")
+    print("\nResults will be printed with 1 as Breast Cancer case and 0 as healthy")
+    print("\nHand Prediction: ")
     print(prediction)
  
 if __name__ == "__main__" :     
